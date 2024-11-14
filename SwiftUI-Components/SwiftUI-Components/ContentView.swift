@@ -8,12 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var isShowing: Bool = false
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        LazyVStack(alignment: .leading) {
+            
+            HStack {
+                Text("Collapsable Indicator")
+                Spacer()
+                CollapseIndicator(isShowing: $isShowing)
+            }
+            Divider()
+            
+            Spacer()
         }
         .padding()
     }
