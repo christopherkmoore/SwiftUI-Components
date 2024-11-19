@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct StateProgress: View {
+   @Environment(\.colorScheme) var colorScheme
+
     enum Bubbles {
         case notStarted
         case inProgress
@@ -45,7 +47,7 @@ struct StateProgress: View {
             switch self {
             case .notStarted: return "Not Started"
             case .inProgress: return "In Progress"
-            case .done: return "Done"
+            case .done: return "Report Created"
             case .error: return "Past Due"
             }
         }
@@ -62,41 +64,34 @@ struct StateProgress: View {
     
     var body: some View {
         GeometryReader { geometry in
-            
-            ZStack {
-
-                    HStack {
-                        Spacer()
-                        ForEach(states.indices) { index in
-                            let state = states[index]
-                            ZStack {
-                                if 0...numberOfLines ~= index {
-                                    Rectangle()
-                                        .fill(Color.black.quinary)
-                                        .frame(width: geometry.size.width * 0.2, height: 2)
-                                        .offset(x: geometry.size.width * 0.13)
-                                }
-                                Spacer()
-                                StateProgressCirlce(state: state, reader: geometry)
-                                Text(state.title)
-                                    .font(.system(size: 12))
-                                    .frame(width: geometry.size.width * 0.2, height: 2, alignment: .center)
-                                    .frame(idealWidth: geometry.size.width)
-                                    .offset(y: 25)
-                            }
-                            Spacer()
-                        }
-                        
-                }
-                
-            }
-        }
+              HStack {
+                  Spacer()
+                  ForEach(states.indices) { index in
+                      let state = states[index]
+                      ZStack {
+                          if 0...numberOfLines ~= index {
+                              Rectangle()
+                                .fill(colorScheme == .dark ? Color.white.quinary : Color.black.quinary)
+                                  .frame(width: geometry.size.width * 0.2, height: 2)
+                                  .offset(x: geometry.size.width * 0.12)
+                          }
+                          Spacer()
+                          StateProgressCirlce(state: state, reader: geometry)
+                          Text(state.title)
+                              .font(.system(size: 12))
+                              .frame(width: geometry.size.width * 0.2, height: 30, alignment: .center)
+                              .offset(y: 30)
+                      }
+                      Spacer()
+                  }
+             }
+         }
     }
 }
 
-
-
 struct StateProgressCirlce: View {
+   @Environment(\.colorScheme) var colorScheme
+
     let state: StateProgress.Bubbles
     let reader: GeometryProxy
     let size: CGFloat = 25
@@ -104,7 +99,7 @@ struct StateProgressCirlce: View {
     var body: some View {
         ZStack {
             Circle()
-                .fill(.white)
+              .fill(.white.secondary)
                 .fill(state.color.secondary)
                 .frame(width: size, height: size)
             
