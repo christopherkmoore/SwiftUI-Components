@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct StateProgress: View {
     enum Bubbles {
         case notStarted
@@ -42,33 +40,55 @@ struct StateProgress: View {
             case .error: return 1
             }
         }
+        
+        var title: String {
+            switch self {
+            case .notStarted: return "Not Started"
+            case .inProgress: return "In Progress"
+            case .done: return "Done"
+            case .error: return "Past Due"
+            }
+        }
     }
     
-    let states: [Bubbles] = [.done, .done, .inProgress, .error]
+    let states: [Bubbles] = [.done, .inProgress, .error, .notStarted]
     
+    var numberOfLines: Int {
+        states.filter { $0 != .notStarted }.count - 1
+    }
     var fill: CGFloat {
-        CGFloat(states.filter { $0 != .notStarted }.count - 1) * 0.2
+        CGFloat(numberOfLines) * 0.2
     }
     
     var body: some View {
         GeometryReader { geometry in
             
             ZStack {
-                HStack {
-                    Rectangle()
-                        .fill(Color.black.quinary)
-                        .frame(width: geometry.size.width * fill, height: 2)
-                        .offset(x: geometry.size.width * 0.2)
-                    Spacer()
+
+                    HStack {
+                        Spacer()
+                        ForEach(states.indices) { index in
+                            let state = states[index]
+                            ZStack {
+                                if 0...numberOfLines ~= index {
+                                    Rectangle()
+                                        .fill(Color.black.quinary)
+                                        .frame(width: geometry.size.width * 0.2, height: 2)
+                                        .offset(x: geometry.size.width * 0.13)
+                                }
+                                Spacer()
+                                StateProgressCirlce(state: state, reader: geometry)
+                                Text(state.title)
+                                    .font(.system(size: 12))
+                                    .frame(width: geometry.size.width * 0.2, height: 2, alignment: .center)
+                                    .frame(idealWidth: geometry.size.width)
+                                    .offset(y: 25)
+                            }
+                            Spacer()
+                        }
+                        
                 }
                 
-                HStack {
-                    Spacer()
-                    ForEach(states, id: \.self) { state in
-                        StateProgressCirlce(state: state, reader: geometry)
-                        Spacer()
-                    }
-                }
             }
         }
     }

@@ -19,6 +19,7 @@ struct ContentView: View {
                 
                 NavigationLink("State Progress Bar") {
                     StateProgress()
+                        .offset(y: 100)
                 }
                 Divider()
             }
