@@ -18,8 +18,14 @@ struct ContentView: View {
                 Divider()
                 
                 NavigationLink("State Progress Bar") {
+                   
+                   Text("Static")
                     StateProgress()
                         .offset(y: 100)
+                   
+                   Text("Dynamic")
+                   TappableStateProgress()
+                      .offset(y: 100)
                 }
                 Divider()
             }
