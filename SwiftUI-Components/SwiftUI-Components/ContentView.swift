@@ -10,18 +10,20 @@ import SwiftUI
 struct ContentView: View {
     @State var isShowing: Bool = false
     var body: some View {
-        LazyVStack(alignment: .leading) {
-            
-            HStack {
-                Text("Collapsable Indicator")
-                Spacer()
-                CollapseIndicator(isShowing: $isShowing)
+        NavigationStack {
+            LazyVStack(alignment: .leading) {
+                NavigationLink("Collapsable Indicator") {
+                    CollapseIndicator(isShowing: $isShowing)
+                }
+                Divider()
+                
+                NavigationLink("State Progress Bar") {
+                    StateProgress()
+                }
+                Divider()
             }
-            Divider()
-            
-            Spacer()
+            .padding()
         }
-        .padding()
     }
 }
 
