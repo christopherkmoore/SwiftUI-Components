@@ -10,7 +10,7 @@ import SwiftUI
 struct StateProgress: View {
    @Environment(\.colorScheme) var colorScheme
    
-   enum Bubbles {
+   enum Tracking {
       case notStarted
       case inProgress
       case done
@@ -53,7 +53,7 @@ struct StateProgress: View {
       }
    }
    
-   let states: [Bubbles] = [.done, .inProgress, .error, .notStarted, .notStarted, .notStarted]
+   let states: [Tracking] = [.done, .inProgress, .error, .notStarted, .notStarted, .notStarted]
    
 
    // Spacing for the Bubbles [o  o  o  o]
@@ -98,7 +98,7 @@ struct StateProgress: View {
 struct StateProgressCirlce: View {
    @Environment(\.colorScheme) var colorScheme
    
-   let state: StateProgress.Bubbles
+   let state: StateProgress.Tracking
    let reader: GeometryProxy
    let size: CGFloat = 25
    
