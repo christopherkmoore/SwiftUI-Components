@@ -53,7 +53,7 @@ struct StateProgress: View {
       }
    }
    
-   let states: [Tracking] = [.done, .inProgress, .error, .notStarted, .notStarted, .notStarted]
+   let states: [Tracking] = [.done, .inProgress, .error, .notStarted]
    
 
    // Spacing for the Bubbles [o  o  o  o]
