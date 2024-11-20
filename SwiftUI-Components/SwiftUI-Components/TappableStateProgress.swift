@@ -83,7 +83,7 @@ struct TappableStateProgress: View {
             ZStack {
                 Rectangle() // Draw the line intersecting everything.
                     .fill(colorScheme == .dark ? Color.white.quinary : Color.black.quinary)
-                    .frame(width: ((geometry.size.width * lineLength) - 100), height: 2)
+                    .frame(width: ((geometry.size.width * lineLength) - 40), height: 2)
                 HStack {
                     Spacer()
                     ForEach($stateTasksList) { $stateTask in
@@ -117,7 +117,6 @@ struct TappableStateProgressCirlce: View {
     let stateTask: TappableStateProgress.StateTask
     let reader: GeometryProxy
     var size: CGFloat = 25
-    var isSelected: Bool = false
     
     var body: some View {
         
@@ -126,18 +125,16 @@ struct TappableStateProgressCirlce: View {
                 .stroke(colorScheme == .light ? Color.black.secondary : Color.white.secondary, lineWidth: 2) // Border
                 .fill(.white)   // Use this to fill white over the line
                 .fill(stateTask.trackingBubble.color.secondary)
-                .frame(width: isSelected ? size * 2.0 : size,
-                       height: isSelected ? size * 2.0 : size)
-            
+                .frame(width: size, height: size)
+
             if stateTask.trackingBubble != .notStarted {
                 Image(systemName: stateTask.trackingBubble.image)
                     .resizable()
                     .padding(stateTask.trackingBubble.padding)
-                    .frame(width: isSelected ? size * 2.0 : size,
-                           height: isSelected ? size * 2.0 : size)
+                    .frame(width: size, height: size)
                     .foregroundStyle(colorScheme == .light ? .white : .black, .clear)
             }
-        }.animation(.default, value: isSelected)
+        }
     }
 }
 
