@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var isShowing: Bool = false
+    @State var completedSteps = 0
     var body: some View {
         NavigationStack {
             LazyVStack(alignment: .leading) {
@@ -28,6 +29,30 @@ struct ContentView: View {
                     StateTabbedController()
                 }
                 Divider()
+                
+                NavigationLink("Animated Tab Group") {
+                    
+                    AnimatedTabGroup(numberOfSteps: 4, activeIndex: .constant(1), completedSteps: $completedSteps )
+                    
+                    Button("Increment") {
+                        withAnimation {
+                            completedSteps += 1
+                        }
+                    }
+                    
+                    Button("Decrease") {
+                        withAnimation {
+                            completedSteps -= 1
+                        }
+                    }
+                }
+                Divider()
+
+                NavigationLink("Distance Chart Tappable") {
+                    DistanceChartTappable()
+                        .padding(20)
+
+                }
                 
             }
             .padding()

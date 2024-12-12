@@ -68,6 +68,7 @@ struct StateTabbedController: View {
     @State private var activeCardIndex: Int? = 0
     @Namespace private var animation
     
+    
     func checkConnections() {
         for index in 0..<stateTasksList.count - 1 {
             if index + 1 > stateTasksList.count {
@@ -184,7 +185,7 @@ struct StateTab: View {
             ZStack {
                 Circle()
                     .stroke(colorScheme == .light ? Color.black.secondary : Color.white.secondary, lineWidth: 2) // Border
-                    .fill(.white)   // Use this to fill white over the line
+                    .fill(Color(uiColor: .systemGray3))   // Use this to fill white over the line
                     .fill(stateTask.trackingBubble.color.secondary)
                     .frame(width: isSelected ? size * 1.5 : size,
                            height: isSelected ? size * 1.5 : size)
